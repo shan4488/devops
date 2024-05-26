@@ -1,5 +1,6 @@
-#Food Delivery App
-###Team:
+Food Delivery App
+
+Team:
 - Sharan Kumar
 - Kabir Nasir
 - Dharithri Rai
