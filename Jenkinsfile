@@ -31,7 +31,7 @@ pipeline {
                 SONAR_URL = "http://35.172.59.151:9000/"
             }
             steps {
-                withCredentials([string(credentialsId: '90ed179f-e062-459c-a6de-9a7988338e93', variable: 'SONAR_AUTH_TOKEN')]) {
+                withCredentials([string(credentialsId: 'sonarsonar', variable: 'SONAR_AUTH_TOKEN')]) {
                     script {
                         def branches = [:]
                         branches['SonarQube Analysis for Client'] = {
