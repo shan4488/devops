@@ -67,12 +67,12 @@ pipeline {
             steps {
                 script {
                     // Build server image
-                    sh 'docker-compose -f docker-compose.yml build server'
+                    sh 'docker-compose -f docker-compose.yaml build server'
                     // Tag server image
                     sh 'docker tag shan4488/bits-food-server:v1 ${DOCKER_REGISTRY}/shan4488/bits-food-server:v1'
 
                     // Build client image
-                    sh 'docker-compose -f docker-compose.yml build client'
+                    sh 'docker-compose -f docker-compose.yaml build client'
                     // Tag client image
                     sh 'docker tag shan4488/bits-food-client:v1 ${DOCKER_REGISTRY}/shan4488/bits-food-client:v1'
 
