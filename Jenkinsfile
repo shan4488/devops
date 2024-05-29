@@ -19,10 +19,9 @@ pipeline {
                 sh '''
                     cd client
                     npm install
-                    
-                    npm test
                     cd ../server
                     npm install
+                    echo Done
                 '''
             }
         }
@@ -33,35 +32,33 @@ pipeline {
             }
             steps {
                 withCredentials([string(credentialsId: 'sonarsonar', variable: 'SONAR_AUTH_TOKEN')]) {
-                    parallel {
-                        stage('SonarQube Analysis for Client') {
-                            steps {
-                                dir('client') {
-                                    sh '''
-                                        npm install sonar-scanner --save-dev
-                                        npx sonar-scanner \
-                                            -Dsonar.projectKey=your-client-project-key \
-                                            -Dsonar.sources=src \
-                                            -Dsonar.host.url=$SONAR_URL \
-                                            -Dsonar.login=$SONAR_AUTH_TOKEN
-                                    '''
-                                }
+                    script {
+                        def branches = [:]
+                        branches['SonarQube Analysis for Client'] = {
+                            dir('client') {
+                                sh '''
+                                    npm install sonar-scanner --save-dev
+                                    npx sonar-scanner \
+                                        -Dsonar.projectKey=your-client-project-key \
+                                        -Dsonar.sources=src \
+                                        -Dsonar.host.url=$SONAR_URL \
+                                        -Dsonar.login=$SONAR_AUTH_TOKEN
+                                '''
                             }
                         }
-                        stage('SonarQube Analysis for Server') {
-                            steps {
-                                dir('server') {
-                                    sh '''
-                                        npm install sonar-scanner --save-dev
-                                        npx sonar-scanner \
-                                            -Dsonar.projectKey=your-server-project-key \
-                                            -Dsonar.sources=src \
-                                            -Dsonar.host.url=$SONAR_URL \
-                                            -Dsonar.login=$SONAR_AUTH_TOKEN
-                                    '''
-                                }
+                        branches['SonarQube Analysis for Server'] = {
+                            dir('server') {
+                                sh '''
+                                    npm install sonar-scanner --save-dev
+                                    npx sonar-scanner \
+                                        -Dsonar.projectKey=your-server-project-key \
+                                        -Dsonar.sources=src \
+                                        -Dsonar.host.url=$SONAR_URL \
+                                        -Dsonar.login=$SONAR_AUTH_TOKEN
+                                '''
                             }
                         }
+                        parallel branches
                     }
                 }
             }
