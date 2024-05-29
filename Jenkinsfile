@@ -52,7 +52,7 @@ pipeline {
                                     npm install sonar-scanner --save-dev
                                     npx sonar-scanner \
                                         -Dsonar.projectKey=your-server-project-key \
-                                        -Dsonar.sources=src \
+                                        -Dsonar.sources=. \
                                         -Dsonar.host.url=$SONAR_URL \
                                         -Dsonar.login=$SONAR_AUTH_TOKEN
                                 '''
