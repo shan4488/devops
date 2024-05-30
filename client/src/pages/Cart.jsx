@@ -359,7 +359,7 @@ const Cart = () => {
                           small
                           placeholder="First Name"
                           value={deliveryDetails.firstName}
-                          handelChange={(e) =>
+                          handleChange={(e) =>
                             setDeliveryDetails({
                               ...deliveryDetails,
                               firstName: e.target.value,
@@ -370,7 +370,7 @@ const Cart = () => {
                           small
                           placeholder="Last Name"
                           value={deliveryDetails.lastName}
-                          handelChange={(e) =>
+                          handleChange={(e) =>
                             setDeliveryDetails({
                               ...deliveryDetails,
                               lastName: e.target.value,
@@ -382,7 +382,7 @@ const Cart = () => {
                         small
                         placeholder="Email Address"
                         value={deliveryDetails.emailAddress}
-                        handelChange={(e) =>
+                        handleChange={(e) =>
                           setDeliveryDetails({
                             ...deliveryDetails,
                             emailAddress: e.target.value,
@@ -393,7 +393,7 @@ const Cart = () => {
                         small
                         placeholder="Phone no. +91 XXXXX XXXXX"
                         value={deliveryDetails.phoneNumber}
-                        handelChange={(e) =>
+                        handleChange={(e) =>
                           setDeliveryDetails({
                             ...deliveryDetails,
                             phoneNumber: e.target.value,
@@ -406,7 +406,7 @@ const Cart = () => {
                         rows="5"
                         placeholder="Complete Address (Address, State, Country, Pincode)"
                         value={deliveryDetails.completeAddress}
-                        handelChange={(e) =>
+                        handleChange={(e) =>
                           setDeliveryDetails({
                             ...deliveryDetails,
                             completeAddress: e.target.value,
@@ -418,21 +418,33 @@ const Cart = () => {
                   <Delivery>
                     Payment Details:
                     <div>
-                      <TextInput small placeholder="Card Number" />
+                      <TextInput small placeholder="Card Number"  
+                      handleChange={() => {}
+                          
+                        }/>
                       <div
                         style={{
                           display: "flex",
                           gap: "6px",
                         }}
                       >
-                        <TextInput small placeholder="Expiry Date" />
-                        <TextInput small placeholder="CVV" />
+                        <TextInput small placeholder="Expiry Date" 
+                        handleChange={() => {}
+                          
+                        }/>
+                        <TextInput small placeholder="CVV"
+                        handleChange={() => {}
+                          
+                        }/>
                       </div>
-                      <TextInput small placeholder="Card Holder name" />
+                      <TextInput small placeholder="Card Holder name"
+                      handleChange={() => {}
+                          
+                        }/>
                     </div>
                   </Delivery>
                   <Button
-                    text="Pace Order"
+                    text="Place Order"
                     small
                     onClick={PlaceOrder}
                     isLoading={buttonLoad}

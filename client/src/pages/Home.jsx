@@ -41,6 +41,7 @@ const Title = styled.div`
 `;
 const CardWrapper = styled.div`
   display: flex;
+  z-index: 0;
   flex-wrap: wrap;
   gap: 32px;
   justify-content: center;

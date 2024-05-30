@@ -276,7 +276,7 @@ const FoodDetails = () => {
                 isLoading={cartLoading}
                 onClick={() => addCart()}
               />
-              <Button text="Order Now" full />
+              <Button text="Order Now" full onClick={() => addCart()}/>
               <Button
                 leftIcon={
                   favorite ? (
