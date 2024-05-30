@@ -4,7 +4,7 @@ pipeline {
     environment {
         SONAR_URL = "http://35.172.59.151:9000/"
         DOCKER_REGISTRY = "docker.io"
-        DOCKER_CREDENTIALS_ID = "docker-cred"
+        DOCKER_CREDENTIALS_ID = "docker_cred"
     }
 
     stages {
