@@ -66,13 +66,13 @@ pipeline {
         stage('Build and Push Docker Images') {
             steps {
                 script {
-                    // Build server image
-                    sh 'docker-compose -f docker-compose.yaml build server'
+                    // Build server image using docker build
+                    sh 'docker build -t shan4488/bits-food-server:v1 -f Dockerfile.server .'
                     // Tag server image
                     sh 'docker tag shan4488/bits-food-server:v1 ${DOCKER_REGISTRY}/shan4488/bits-food-server:v1'
 
-                    // Build client image
-                    sh 'docker-compose -f docker-compose.yaml build client'
+                    // Build client image using docker build
+                    sh 'docker build -t shan4488/bits-food-client:v1 -f Dockerfile.client .'
                     // Tag client image
                     sh 'docker tag shan4488/bits-food-client:v1 ${DOCKER_REGISTRY}/shan4488/bits-food-client:v1'
 
