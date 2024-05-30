@@ -66,26 +66,30 @@ pipeline {
         stage('Build and Push Docker Images') {
             steps {
                 script {
-                    // Build server image using docker build
-                    sh 'docker build -t shan4488/bits-food-server:v1 -f Dockerfile.server .'
+                    // Navigate to the directory containing Dockerfile.server and build the server image
+                    dir('server') {
+                        sh 'sudo docker build -t shan4488/bits-food-server:v1 -f Dockerfile.server .'
+                    }
                     // Tag server image
-                    sh 'docker tag shan4488/bits-food-server:v1 ${DOCKER_REGISTRY}/shan4488/bits-food-server:v1'
+                    sh 'sudo docker tag shan4488/bits-food-server:v1 ${DOCKER_REGISTRY}/shan4488/bits-food-server:v1'
 
-                    // Build client image using docker build
-                    sh 'docker build -t shan4488/bits-food-client:v1 -f Dockerfile.client .'
+                    // Navigate to the directory containing Dockerfile.client and build the client image
+                    dir('client') {
+                        sh 'sudo docker build -t shan4488/bits-food-client:v1 -f Dockerfile.client .'
+                    }
                     // Tag client image
-                    sh 'docker tag shan4488/bits-food-client:v1 ${DOCKER_REGISTRY}/shan4488/bits-food-client:v1'
+                    sh 'sudo docker tag shan4488/bits-food-client:v1 ${DOCKER_REGISTRY}/shan4488/bits-food-client:v1'
 
                     // Login to Docker Hub
                     withCredentials([usernamePassword(credentialsId: "${DOCKER_CREDENTIALS_ID}", usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        sh "docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD} ${DOCKER_REGISTRY}"
+                        sh "sudo docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD} ${DOCKER_REGISTRY}"
                     }
 
                     // Push server image to Docker Hub
-                    sh 'docker push ${DOCKER_REGISTRY}/shan4488/bits-food-server:v1'
+                    sh 'sudo docker push ${DOCKER_REGISTRY}/shan4488/bits-food-server:v1'
 
                     // Push client image to Docker Hub
-                    sh 'docker push ${DOCKER_REGISTRY}/shan4488/bits-food-client:v1'
+                    sh 'sudo docker push ${DOCKER_REGISTRY}/shan4488/bits-food-client:v1'
                 }
             }
         }
