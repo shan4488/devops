@@ -68,14 +68,16 @@ pipeline {
                 script {
                     // Navigate to the directory containing Dockerfile.server and build the server image
                     dir('server') {
-                        sh 'sudo docker build -t shan4488/bits-food-server:v1 -f Dockerfile.server .'
+                        sh 'echo in server'
+                        sh 'sudo docker build -t shan4488/bits-food-server:v1 -f Dockerfile .'
                     }
                     // Tag server image
                     sh 'sudo docker tag shan4488/bits-food-server:v1 ${DOCKER_REGISTRY}/shan4488/bits-food-server:v1'
 
                     // Navigate to the directory containing Dockerfile.client and build the client image
                     dir('client') {
-                        sh 'sudo docker build -t shan4488/bits-food-client:v1 -f Dockerfile.client .'
+                        sh 'echo in client'
+                        sh 'sudo docker build -t shan4488/bits-food-client:v1 -f Dockerfile .'
                     }
                     // Tag client image
                     sh 'sudo docker tag shan4488/bits-food-client:v1 ${DOCKER_REGISTRY}/shan4488/bits-food-client:v1'
