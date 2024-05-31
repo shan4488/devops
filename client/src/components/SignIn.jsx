@@ -132,6 +132,7 @@ const SignIn = ({ setOpenAuth }) => {
       <div style={{ display: "flex", gap: "20px", flexDirection: "column" }}>
         <TextInput
           label="Email Address"
+          id="input_email"
           placeholder="Enter your email address"
           value={email}
           handleChange={(e) => setEmail(e.target.value)}
@@ -139,6 +140,7 @@ const SignIn = ({ setOpenAuth }) => {
         {emailError && <ErrorText>{emailError}</ErrorText>}
         <TextInput
           label="Password"
+          id="input_password"
           placeholder="Enter your password"
           password
           value={password}
@@ -148,6 +150,7 @@ const SignIn = ({ setOpenAuth }) => {
         <TextButton>Forgot Password?</TextButton>
         <Button
           text="Sign In"
+          id="loginbutton"
           onClick={handleSignIn}
           isLoading={loading}
           isDisabled={buttonDisabled}

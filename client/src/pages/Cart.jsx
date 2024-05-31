@@ -296,7 +296,7 @@ const Cart = () => {
                           </Details>
                         </Product>
                       </TableItem>
-                      <TableItem>${item?.product?.price?.org}</TableItem>
+                      <TableItem>INR{item?.product?.price?.org}</TableItem>
                       <TableItem>
                         <Counter>
                           <div
@@ -344,7 +344,7 @@ const Cart = () => {
                 </Left>
                 <Right>
                   <Subtotal>
-                    Subtotal : ${calculateSubtotal().toFixed(2)}
+                    Subtotal : INR{calculateSubtotal().toFixed(2)}
                   </Subtotal>
                   <Delivery>
                     Delivery Details:
