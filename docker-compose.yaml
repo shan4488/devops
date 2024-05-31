@@ -2,28 +2,23 @@ version: '3.8'
 services:
   server:
     build: ./server
-    image: shan4488/bits-food-server:v2
+    image: shan4488/bits-food-server:v4
     environment:
       - PORT=8004
       - MONGODB_URL=${MONGODB_URL}
       - JWT=${JWT}
     ports:
       - "8004:8004"
-    volumes:
-      - ./server:/app
     networks:
       - app-network
 
   client:
     build: ./client
-    image: shan4488/bits-food-client:v2
+    image: shan4488/bits-food-client:v4
     environment:
       - REACT_APP_API_HOST=http://localhost:8004/api/
     ports:
       - "3000:3000"
-    volumes:
-      - ./client/src:/app/src
-      - ./client/public:/app/public
     depends_on:
       - server
     networks:
