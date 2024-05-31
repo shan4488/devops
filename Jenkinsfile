@@ -69,18 +69,18 @@ pipeline {
                     // Navigate to the directory containing Dockerfile.server and build the server image
                     dir('server') {
                         sh 'echo in server'
-                        sh 'sudo docker build -t shan4488/bits-food-server:v1 -f Dockerfile .'
+                        sh 'sudo docker build -t shan4488/bits-food-server:v4 -f Dockerfile .'
                     }
                     // Tag server image
-                    sh 'sudo docker tag shan4488/bits-food-server:v1 ${DOCKER_REGISTRY}/shan4488/bits-food-server:v1'
+                    sh 'sudo docker tag shan4488/bits-food-server:v4 ${DOCKER_REGISTRY}/shan4488/bits-food-server:v4'
 
                     // Navigate to the directory containing Dockerfile.client and build the client image
                     dir('client') {
                         sh 'echo in client'
-                        sh 'sudo docker build -t shan4488/bits-food-client:v1 -f Dockerfile .'
+                        sh 'sudo docker build -t shan4488/bits-food-client:v4 -f Dockerfile .'
                     }
                     // Tag client image
-                    sh 'sudo docker tag shan4488/bits-food-client:v1 ${DOCKER_REGISTRY}/shan4488/bits-food-client:v1'
+                    sh 'sudo docker tag shan4488/bits-food-client:v4 ${DOCKER_REGISTRY}/shan4488/bits-food-client:v4'
 
                     // Login to Docker Hub
                     withCredentials([usernamePassword(credentialsId: "${DOCKER_CREDENTIALS_ID}", usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
