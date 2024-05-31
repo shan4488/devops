@@ -13,16 +13,24 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 36px;
+  margin: 0 auto; /* Center the container */
 `;
+
 const Title = styled.div`
   font-size: 30px;
   font-weight: 800;
   color: ${({ theme }) => theme.primary};
 `;
+
 const Span = styled.div`
   font-size: 16px;
   font-weight: 400;
   color: ${({ theme }) => theme.text_secondary + 90};
+`;
+
+const ErrorMessage = styled.div`
+  color: red;
+  font-size: 11px;
 `;
 
 const SignUp = ({ setOpenAuth }) => {
@@ -32,13 +40,30 @@ const SignUp = ({ setOpenAuth }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
 
   const validateInputs = () => {
-    if (!name || !email || !password) {
-      alert("Please fill in all fields");
-      return false;
+    const newErrors = {};
+
+    if (!name) {
+      newErrors.name = "Please enter your full name";
     }
-    return true;
+    if (!email) {
+      newErrors.email = "Please enter your email address";
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = "Please enter a valid email address";
+    }
+    if (!password) {
+      newErrors.password = "Please enter your password";
+    } else if (password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters long";
+    } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      newErrors.password = "Password must contain at least one special character";
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSignUp = async () => {
@@ -82,8 +107,12 @@ const SignUp = ({ setOpenAuth }) => {
             );
           }
         });
+    } else {
+      setLoading(false);
+      setButtonDisabled(false);
     }
   };
+
   return (
     <Container>
       <div>
@@ -91,25 +120,34 @@ const SignUp = ({ setOpenAuth }) => {
         <Span>Please enter details to create a new account</Span>
       </div>
       <div style={{ display: "flex", gap: "20px", flexDirection: "column" }}>
-        <TextInput
-          label="Full Name"
-          placeholder="Enter your full name"
-          value={name}
-          handleChange={(e) => setName(e.target.value)}
-        />
-        <TextInput
-          label="Email Address"
-          placeholder="Enter your email address"
-          value={email}
-          handleChange={(e) => setEmail(e.target.value)}
-        />
-        <TextInput
-          label="Password"
-          placeholder="Enter your password"
-          password
-          value={password}
-          handleChange={(e) => setPassword(e.target.value)}
-        />
+        <div>
+          <TextInput
+            label="Full Name"
+            placeholder="Enter your full name"
+            value={name}
+            handleChange={(e) => setName(e.target.value)}
+          />
+          {errors.name && <ErrorMessage>{errors.name}</ErrorMessage>}
+        </div>
+        <div>
+          <TextInput
+            label="Email Address"
+            placeholder="Enter your email address"
+            value={email}
+            handleChange={(e) => setEmail(e.target.value)}
+          />
+          {errors.email && <ErrorMessage>{errors.email}</ErrorMessage>}
+        </div>
+        <div>
+          <TextInput
+            label="Password"
+            placeholder="Enter your password"
+            password
+            value={password}
+            handleChange={(e) => setPassword(e.target.value)}
+          />
+          {errors.password && <ErrorMessage>{errors.password}</ErrorMessage>}
+        </div>
         <Button
           text="Sign Up"
           onClick={handleSignUp}

@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import { useState } from "react";
 import Authentication from "./pages/Authentication";
 import Favourites from "./pages/Favourites";
+import Contact from "./pages/Contact";
 import Cart from "./pages/Cart";
 import FoodDetails from "./pages/FoodDetails";
 import FoodListing from "./pages/FoodListing";
@@ -32,6 +33,8 @@ function App() {
             <Route path="/cart" exact element={<Cart />} />
             <Route path="/dishes/:id" exact element={<FoodDetails />} />
             <Route path="/dishes" exact element={<FoodListing />} />
+            <Route path="/contact" exact element={<Contact />} />
+
           </Routes>
           {openAuth && (
             <Authentication setOpenAuth={setOpenAuth} openAuth={openAuth} />
