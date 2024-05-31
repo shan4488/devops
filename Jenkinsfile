@@ -88,10 +88,10 @@ pipeline {
                     }
 
                     // Push server image to Docker Hub
-                    sh 'sudo docker push ${DOCKER_REGISTRY}/shan4488/bits-food-server:v1'
+                    sh 'sudo docker push ${DOCKER_REGISTRY}/shan4488/bits-food-server:v4'
 
                     // Push client image to Docker Hub
-                    sh 'sudo docker push ${DOCKER_REGISTRY}/shan4488/bits-food-client:v1'
+                    sh 'sudo docker push ${DOCKER_REGISTRY}/shan4488/bits-food-client:v4'
                 }
             }
         }
