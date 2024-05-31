@@ -14,16 +14,19 @@ const Container = styled.div`
   flex-direction: column;
   gap: 36px;
 `;
+
 const Title = styled.div`
   font-size: 30px;
   font-weight: 800;
   color: ${({ theme }) => theme.primary};
 `;
+
 const Span = styled.div`
   font-size: 16px;
   font-weight: 400;
   color: ${({ theme }) => theme.text_secondary + 90};
 `;
+
 const TextButton = styled.div`
   width: 100%;
   text-align: end;
@@ -37,22 +40,57 @@ const TextButton = styled.div`
   }
 `;
 
+const ErrorText = styled.div`
+  color: red;
+  font-size: 11px;
+`;
+
 const SignIn = ({ setOpenAuth }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
-  const validateInputs = () => {
-    if (!email || !password) {
-      alert("Please fill in all fields");
-      return false;
-    }
-    return true;
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
-  const handelSignIn = async () => {
+  const validatePassword = (password) => {
+    const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+    return password.length >= 6 && specialCharRegex.test(password);
+  };
+
+  const validateInputs = () => {
+    let isValid = true;
+
+    if (!email) {
+      setEmailError("Email is required.");
+      isValid = false;
+    } else if (!validateEmail(email)) {
+      setEmailError("Invalid email format.");
+      isValid = false;
+    } else {
+      setEmailError("");
+    }
+
+    if (!password) {
+      setPasswordError("Password is required.");
+      isValid = false;
+    } else if (!validatePassword(password)) {
+      setPasswordError("Password must be at least 6 characters long and contain at least one special character.");
+      isValid = false;
+    } else {
+      setPasswordError("");
+    }
+
+    return isValid;
+  };
+
+  const handleSignIn = async () => {
     setLoading(true);
     setButtonDisabled(true);
     if (validateInputs()) {
@@ -79,6 +117,9 @@ const SignIn = ({ setOpenAuth }) => {
             })
           );
         });
+    } else {
+      setLoading(false);
+      setButtonDisabled(false);
     }
   };
 
@@ -95,6 +136,7 @@ const SignIn = ({ setOpenAuth }) => {
           value={email}
           handleChange={(e) => setEmail(e.target.value)}
         />
+        {emailError && <ErrorText>{emailError}</ErrorText>}
         <TextInput
           label="Password"
           placeholder="Enter your password"
@@ -102,11 +144,11 @@ const SignIn = ({ setOpenAuth }) => {
           value={password}
           handleChange={(e) => setPassword(e.target.value)}
         />
-
+        {passwordError && <ErrorText>{passwordError}</ErrorText>}
         <TextButton>Forgot Password?</TextButton>
         <Button
           text="Sign In"
-          onClick={handelSignIn}
+          onClick={handleSignIn}
           isLoading={loading}
           isDisabled={buttonDisabled}
         />
