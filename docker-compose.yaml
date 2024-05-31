@@ -9,8 +9,6 @@ services:
       - JWT=${JWT}
     ports:
       - "8004:8004"
-    volumes:
-      - ./server:/app
     networks:
       - app-network
 
@@ -21,9 +19,6 @@ services:
       - REACT_APP_API_HOST=http://localhost:8004/api/
     ports:
       - "3000:3000"
-    volumes:
-      - ./client/src:/app/src
-      - ./client/public:/app/public
     depends_on:
       - server
     networks:
