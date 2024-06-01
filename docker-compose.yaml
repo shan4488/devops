@@ -2,7 +2,7 @@ version: '3.8'
 services:
   server:
     build: ./server
-    image: shan4488/bits-food-server:v4
+    image: shan4488/bits-food-server:v6
     environment:
       - PORT=8004
       - MONGODB_URL=${MONGODB_URL}
@@ -14,7 +14,7 @@ services:
 
   client:
     build: ./client
-    image: shan4488/bits-food-client:v4
+    image: shan4488/bits-food-client:v6
     environment:
       - REACT_APP_API_HOST=http://localhost:8004/api/
     ports:
