@@ -19,4 +19,4 @@ spec:
             - containerPort: 8004
           envFrom:
             - secretRef:
-                name: my-secret
+                name: my-secret1
