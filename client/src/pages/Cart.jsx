@@ -324,7 +324,7 @@ const Cart = () => {
                       </TableItem>
                       <TableItem>
                         {" "}
-                        $
+                        INR
                         {(item.quantity * item?.product?.price?.org).toFixed(2)}
                       </TableItem>
                       <TableItem>
